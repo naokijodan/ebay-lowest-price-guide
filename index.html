@@ -434,6 +434,12 @@
     margin-bottom: 6px;
   }
 
+  .view-card .country-name {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
   .view-card .ship-amount {
     font-size: 20px;
     font-weight: bold;
@@ -616,6 +622,7 @@
     </p>
     <ul class="intro-list">
       <li><strong>アメリカのバイヤー</strong>：合計102.9ドルで最安値が取れます ⭕</li>
+      <li><strong>ヨーロッパのバイヤー</strong>：ヨーロッパの関税は4ドル程度なのに、アメリカの関税18ドルが入った価格を払うことになり割高です ❌</li>
       <li><strong>その他の国（DDU）のバイヤー</strong>：関税ぶん（18ドル）だけ余計に高い価格に見えます。しかも受け取り時に自分の国の関税は別に払います ❌ → その他の国では最安値が取れません</li>
     </ul>
 
@@ -624,12 +631,10 @@
     </p>
     <ul class="intro-list">
       <li>販売価格は関税抜きの<strong>84.9ドル</strong>にする → 世界共通の価格</li>
-      <li>アメリカ向けにだけ、送料という名目で<strong>18ドル</strong>（関税分）を上乗せ → アメリカのバイヤーは合計<strong>102.9ドル</strong></li>
+      <li>アメリカ向けは、送料という名目で<strong>18ドル</strong>（アメリカの関税分）を上乗せ → 合計<strong>102.9ドル</strong></li>
+      <li>ヨーロッパ向けは、送料欄に<strong>4ドル</strong>（ヨーロッパの関税分）を上乗せ。エコノミー配送の場合は<strong>4ドル＋送料差額</strong>になります</li>
       <li>その他の国のバイヤーは84.9ドル＋送料0のまま → 割高になりません</li>
     </ul>
-    <p>
-      ヨーロッパ向けも同じ考え方で、地域ごとの金額を送料欄に設定します（金額は異なります）。
-    </p>
 
     <div class="compare-two">
       <div class="col">
@@ -637,12 +642,17 @@
         <p class="col-price">販売価格 102.9ドル</p>
         <div class="view-compare stacked">
           <div class="view-card us">
-            <span class="flag">🇺🇸</span>
+            <span class="flag">🇺🇸</span><div class="country-name">アメリカ</div>
             <div class="ship-amount">102.9</div>
             <div class="comment">⭕ 最安値</div>
           </div>
           <div class="view-card other">
-            <span class="flag">🌏</span>
+            <span class="flag">🇪🇺</span><div class="country-name">ヨーロッパ</div>
+            <div class="ship-amount">102.9</div>
+            <div class="comment">❌ アメリカの関税18ドル込みで割高</div>
+          </div>
+          <div class="view-card other">
+            <span class="flag">🌏</span><div class="country-name">その他の国</div>
             <div class="ship-amount">102.9</div>
             <div class="comment">❌ 関税がないのに割高</div>
           </div>
@@ -653,12 +663,17 @@
         <p class="col-price">販売価格 84.9ドル</p>
         <div class="view-compare stacked">
           <div class="view-card us">
-            <span class="flag">🇺🇸</span>
+            <span class="flag">🇺🇸</span><div class="country-name">アメリカ</div>
             <div class="ship-amount">84.9＋18<br>＝102.9</div>
-            <div class="comment">⭕ 最安値</div>
+            <div class="comment">⭕ 最安値（シッピングポリシー＝アメリカの関税18ドル）</div>
           </div>
           <div class="view-card us">
-            <span class="flag">🌏</span>
+            <span class="flag">🇪🇺</span><div class="country-name">ヨーロッパ</div>
+            <div class="ship-amount">84.9＋4</div>
+            <div class="comment">⭕ シッピングポリシー＝ヨーロッパの関税分4ドル<br>（エコノミー配送の場合は4ドル＋送料差額）</div>
+          </div>
+          <div class="view-card us">
+            <span class="flag">🌏</span><div class="country-name">その他の国</div>
             <div class="ship-amount">84.9＋0</div>
             <div class="comment">⭕ 適正価格</div>
           </div>
