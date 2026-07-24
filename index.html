@@ -57,6 +57,14 @@
     padding: 16px;
   }
 
+  .stage-label {
+    text-align: center;
+    font-weight: bold;
+    color: var(--accent);
+    font-size: 16px;
+    margin: 14px 0 6px 0;
+  }
+
   ol.steps {
     margin: 12px 0;
     padding-left: 26px;
@@ -558,6 +566,7 @@
 
     <div class="bar-total-label">自分<br><span class="amount">合計102.9ドル</span></div>
     <div class="breakdown">
+      <div class="stage-label">① 計算時：合計102.9ドルを3つに分けて考える</div>
       <div class="fig-sum" style="flex-wrap:nowrap; margin-bottom:4px;">
         <div class="box price" style="flex:64.9 1 0; max-width:none; min-width:0;">
           <span class="label">商品</span>
@@ -573,19 +582,20 @@
         </div>
       </div>
       <div class="arrow">↓</div>
+      <div class="stage-label">出品時：eBayには2つの欄に分けて入力する</div>
       <div class="parts">
-        <div class="part ddu">
-          <span class="part-label">販売価格の欄に入れる</span>
+        <div class="part ddu" style="flex:3 1 0; min-width:0;">
+          <span class="part-label">② 販売価格の欄に入れる</span>
           <span class="part-value">84.9ドル</span>
-          <span class="part-label">🌏 世界中のバイヤーが払う</span>
+          <span class="part-label">商品64.9＋送料20<br>🌏 世界中のバイヤーが払う</span>
         </div>
-        <div class="part tariff">
-          <span class="part-label">送料の欄（シッピングポリシー）</span>
+        <div class="part tariff" style="flex:1.3 1 0; min-width:0;">
+          <span class="part-label">③ シッピングポリシー（送料の欄）に入れる</span>
           <span class="part-value">18ドル</span>
-          <span class="part-label">🇺🇸 アメリカのバイヤーだけが払う</span>
+          <span class="part-label">関税のぶん<br>🇺🇸 アメリカのバイヤーだけが払う</span>
         </div>
       </div>
-      <div class="note">販売価格の欄＝商品64.9＋送料20＝84.9ドル／送料の欄＝関税18ドル</div>
+      <div class="note">① 計算時に3つに分ける → 出品時は ②販売価格の欄＝商品64.9＋送料20＝84.9ドル ／ ③シッピングポリシー＝関税18ドル</div>
     </div>
 
     <div class="point-box">
