@@ -526,44 +526,74 @@
   <section class="card">
     <h2>第2章　最安値は「商品価格＋送料」の合計で決まる</h2>
     <p>
-      eBayでライバルのセラーと最安値を競うとき、比べているのは商品価格だけではありません。
-      バイヤーが実際に支払うのは「商品価格」と「送料」を足した合計金額です。
-      ライバルより安く見せたいなら、この合計どうしで勝負することになります。
-      アメリカ向けの場合、この「送料」の中身は関税分です（理由は第3章で説明します）。
+      アメリカ向けの価格の中身は、じつは3つに分かれています。「商品代」「送料」「関税」です。
+      ライバルの「103ドル・送料無料」も、中身はこの3つが全部入ったものです。
     </p>
 
-    <div class="fig-sum">
-      <div class="box price">
-        <span class="label">商品価格</span>
-        <span class="value">の箱</span>
+    <div class="bar-total-label">ライバル<br><span class="amount">103ドル</span>（送料無料＝全部込み）</div>
+    <div class="fig-sum" style="flex-wrap:nowrap;">
+      <div class="box price" style="flex:65 1 0; max-width:none; min-width:0;">
+        <span class="label">商品</span>
+        <span class="value">65</span>
       </div>
-      <div class="op">＋</div>
-      <div class="box ship">
-        <span class="label">送料（関税分）</span>
-        <span class="value">の箱</span>
+      <div class="box total" style="flex:20 1 0; max-width:none; min-width:0;">
+        <span class="label">送料</span>
+        <span class="value">20</span>
       </div>
-      <div class="op">＝</div>
-      <div class="box total">
-        <span class="label">バイヤーが払う</span>
-        <span class="value">合計</span>
+      <div class="box ship" style="flex:18 1 0; max-width:none; min-width:0;">
+        <span class="label">関税</span>
+        <span class="value">18</span>
       </div>
-    </div>
-
-    <div class="point-box">
-      比べるのも合計、決めるのも合計
     </div>
 
     <p>
-      ライバルセラーが同じ商品（ベアブリック）を<strong>103ドル・送料無料</strong>で出品しているとします。
-      これはアメリカのバイヤーが払う金額での勝負です。この場合、ライバルの合計は103ドルです。
+      最安値を取るには、この合計より0.1ドル安い<strong>102.9ドル</strong>に合計を決めます。
+      中身は 商品<strong>64.9</strong>＋送料<strong>20</strong>＋関税<strong>18</strong>＝<strong>102.9ドル</strong>。
+      （商品代を0.1ドル下げた）
     </p>
+
+    <div class="bar-total-label">自分<br><span class="amount">合計102.9ドル</span></div>
+    <div class="breakdown">
+      <div class="fig-sum" style="flex-wrap:nowrap; margin-bottom:4px;">
+        <div class="box price" style="flex:64.9 1 0; max-width:none; min-width:0;">
+          <span class="label">商品</span>
+          <span class="value">64.9</span>
+        </div>
+        <div class="box total" style="flex:20 1 0; max-width:none; min-width:0;">
+          <span class="label">送料</span>
+          <span class="value">20</span>
+        </div>
+        <div class="box ship" style="flex:18 1 0; max-width:none; min-width:0;">
+          <span class="label">関税</span>
+          <span class="value">18</span>
+        </div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="parts">
+        <div class="part ddu">
+          <span class="part-label">販売価格の欄に入れる</span>
+          <span class="part-value">84.9ドル</span>
+          <span class="part-label">🌏 世界中のバイヤーが払う</span>
+        </div>
+        <div class="part tariff">
+          <span class="part-label">送料の欄（シッピングポリシー）</span>
+          <span class="part-value">18ドル</span>
+          <span class="part-label">🇺🇸 アメリカのバイヤーだけが払う</span>
+        </div>
+      </div>
+      <div class="note">販売価格の欄＝商品64.9＋送料20＝84.9ドル／送料の欄＝関税18ドル</div>
+    </div>
+
+    <div class="point-box">
+      実際の送料は販売価格の中に入っている（世界中のバイヤーが払う）。<br>
+      送料の欄に入れるのは関税（アメリカのバイヤーだけが払う）
+    </div>
 
     <div class="example-line correct">
       <span class="badge correct">⭕ 正解</span><br>
       合計を<strong>102.9ドル</strong>に決める（ライバルより0.1ドル安い）→
-      送料（関税分）は<strong>18ドル</strong> → 商品価格は 102.9−18＝<strong>84.9ドル</strong><br>
-      商品価格 <strong>84.9ドル</strong> ＋ 送料 <strong>18ドル</strong>
-      ＝ 合計 <strong>102.9ドル</strong> ＝ <strong>最安値</strong>
+      関税<strong>18ドル</strong>は送料の欄（シッピングポリシー）へ →
+      残りの<strong>84.9ドル</strong>（商品64.9＋送料20）が販売価格
     </div>
 
     <div class="bar-chart">
@@ -586,7 +616,7 @@
     </div>
 
     <div class="point-box">
-      合計を先に決める → そこから送料（関税分）を引いた残りが商品価格
+      合計を先に決める → そこから関税分を引いた残りが販売価格
     </div>
   </section>
 
