@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBayの「最安値」とシッピングポリシーの考え方</title>
+<style>
+  :root {
+    --accent: #1a73e8;
+    --accent-light: #e8f0fe;
+    --wrong-bg: #fdecea;
+    --wrong-text: #c62828;
+    --wrong-border: #c62828;
+    --correct-bg: #e6f4ea;
+    --correct-text: #2e7d32;
+    --correct-border: #2e7d32;
+    --gray: #607d8b;
+    --shipping-color: #ffa726;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f5f7fa;
+    color: #222;
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    word-break: break-word;
+  }
+
+  header.page-title {
+    background: var(--accent);
+    color: #fff;
+    padding: 28px 16px;
+    text-align: center;
+  }
+
+  header.page-title h1 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  ol.steps {
+    margin: 12px 0;
+    padding-left: 26px;
+  }
+
+  ol.steps li {
+    margin-bottom: 10px;
+  }
+
+  section.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 20px 16px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: var(--accent);
+    font-size: 19px;
+    border-left: 6px solid var(--accent);
+    padding-left: 10px;
+    margin-top: 0;
+  }
+
+  h3 {
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 10px 0;
+  }
+
+  ul.intro-list {
+    padding-left: 1.2em;
+    margin: 0;
+  }
+
+  ul.intro-list li {
+    margin-bottom: 8px;
+  }
+
+  .point-box {
+    background: var(--accent-light);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 14px;
+    margin: 16px 0;
+    font-weight: bold;
+    color: #0b3d91;
+    text-align: center;
+  }
+
+  /* 図1: 合計の箱 */
+  .fig-sum {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0;
+  }
+
+  .fig-sum .box {
+    flex: 1 1 90px;
+    min-width: 90px;
+    max-width: 130px;
+    text-align: center;
+    padding: 14px 6px;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+
+  .fig-sum .box.price {
+    background: #e3eafc;
+    border: 2px solid var(--accent);
+    color: #0b3d91;
+  }
+
+  .fig-sum .box.ship {
+    background: #fff3e0;
+    border: 2px solid var(--shipping-color);
+    color: #a05a00;
+  }
+
+  .fig-sum .box.total {
+    background: #eeeeee;
+    border: 2px solid #555;
+    color: #222;
+  }
+
+  .fig-sum .op {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+    flex: 0 0 auto;
+  }
+
+  .box .label {
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    margin-bottom: 4px;
+  }
+
+  .box .value {
+    display: block;
+    font-size: 18px;
+  }
+
+  /* 図2, 図4: 積み上げ棒グラフ */
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 10px;
+    height: 260px;
+    margin: 24px 0 8px 0;
+    padding: 0 4px;
+  }
+
+  .bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 0;
+    max-width: 130px;
+  }
+
+  .bar-total-label {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 6px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .bar-total-label .amount {
+    display: block;
+    font-size: 20px;
+  }
+
+  .bar-stack {
+    width: 100%;
+    max-width: 70px;
+    display: flex;
+    flex-direction: column-reverse;
+    border-radius: 8px 8px 4px 4px;
+    overflow: hidden;
+    border: 2px solid #999;
+  }
+
+  .bar-stack.rival { border-color: var(--gray); }
+  .bar-stack.wrong { border-color: var(--wrong-border); }
+  .bar-stack.correct { border-color: var(--correct-border); }
+
+  .seg {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .seg.item-rival { background: var(--gray); }
+  .seg.item-wrong { background: #ef9a9a; color: #7a1414; }
+  .seg.ship-wrong { background: var(--wrong-border); }
+  .seg.item-correct { background: #a5d6a7; color: #1b4d1e; }
+  .seg.ship-correct { background: var(--correct-border); }
+
+  .bar-caption {
+    margin-top: 8px;
+    font-size: 13px;
+    text-align: center;
+    color: #444;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .badge.wrong {
+    background: var(--wrong-bg);
+    color: var(--wrong-text);
+    border: 1px solid var(--wrong-border);
+  }
+
+  .badge.correct {
+    background: var(--correct-bg);
+    color: var(--correct-text);
+    border: 1px solid var(--correct-border);
+  }
+
+  .example-line {
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .example-line.wrong {
+    background: var(--wrong-bg);
+    color: var(--wrong-text);
+    border: 2px solid var(--wrong-border);
+  }
+
+  .example-line.correct {
+    background: var(--correct-bg);
+    color: var(--correct-text);
+    border: 2px solid var(--correct-border);
+  }
+
+  .example-line strong {
+    font-size: 18px;
+  }
+
+  /* 図3: 内訳 */
+  .breakdown {
+    margin: 20px 0;
+  }
+
+  .breakdown .top-box {
+    background: #eeeeee;
+    border: 2px solid #555;
+    border-radius: 10px;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .breakdown .arrow {
+    text-align: center;
+    font-size: 22px;
+    color: #555;
+    margin: 4px 0;
+  }
+
+  .breakdown .parts {
+    display: flex;
+    gap: 8px;
+  }
+
+  .breakdown .part {
+    flex: 1;
+    border-radius: 10px;
+    padding: 12px 6px;
+    text-align: center;
+  }
+
+  .breakdown .part.ddu {
+    background: #e3eafc;
+    border: 2px solid var(--accent);
+    color: #0b3d91;
+  }
+
+  .breakdown .part.tariff {
+    background: #fff3e0;
+    border: 2px solid var(--shipping-color);
+    color: #a05a00;
+  }
+
+  .breakdown .part .part-label {
+    font-size: 13px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .breakdown .part .part-value {
+    font-size: 19px;
+    font-weight: bold;
+    display: block;
+  }
+
+  .breakdown .note {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  table.term-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 15px;
+  }
+
+  table.term-table th, table.term-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  table.term-table th {
+    background: var(--accent-light);
+    color: #0b3d91;
+    width: 30%;
+  }
+
+  /* 図4: 分ける vs 全部込み */
+  .compare-two {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .compare-two .col {
+    flex: 1;
+    text-align: center;
+  }
+
+  .compare-two h4 {
+    font-size: 15px;
+    margin: 0 0 8px 0;
+    color: #333;
+  }
+
+  /* 図5: 見え方比較 */
+  .view-compare {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+
+  .view-card {
+    flex: 1 1 140px;
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .view-card.us {
+    background: var(--correct-bg);
+    border: 2px solid var(--correct-border);
+  }
+
+  .view-card.other {
+    background: var(--wrong-bg);
+    border: 2px solid var(--wrong-border);
+  }
+
+  .view-card .flag {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .view-card .ship-amount {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 6px 0;
+  }
+
+  .view-card.us .ship-amount { color: var(--correct-text); }
+  .view-card.other .ship-amount { color: var(--wrong-text); }
+
+  .view-card .comment {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  ol.summary-list {
+    padding-left: 1.4em;
+  }
+
+  ol.summary-list li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 20px 16px 40px 16px;
+  }
+
+  @media (max-width: 380px) {
+    .bar-total-label .amount { font-size: 17px; }
+    .breakdown .part-value { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-title">
+  <h1>eBayの「最安値」と<br>シッピングポリシーの考え方</h1>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>この記事でわかること</h2>
+    <ul class="intro-list">
+      <li>「最安値」は商品価格だけでなく、合計金額で決まること</li>
+      <li>シッピングポリシー（送料）に関税分を入れる理由</li>
+      <li>「価格と送料を分ける」か「全部込み」かの使い分け</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>第1章　大前提：バイヤーが払うのは「商品価格＋送料」の合計</h2>
+    <p>
+      eBayでライバルのセラーと最安値を競うとき、比べているのは商品価格だけではありません。
+      バイヤーが実際に支払うのは「商品価格」と「送料」を足した合計金額です。
+      ライバルより安く見せたいなら、この合計どうしで勝負することになります。
+    </p>
+
+    <div class="fig-sum">
+      <div class="box price">
+        <span class="label">商品価格</span>
+        <span class="value">の箱</span>
+      </div>
+      <div class="op">＋</div>
+      <div class="box ship">
+        <span class="label">送料</span>
+        <span class="value">の箱</span>
+      </div>
+      <div class="op">＝</div>
+      <div class="box total">
+        <span class="label">バイヤーが払う</span>
+        <span class="value">合計</span>
+      </div>
+    </div>
+
+    <div class="point-box">
+      比べるのも合計、決めるのも合計
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>第2章　よくある間違い（実例）</h2>
+    <p>
+      ライバルセラーが同じ商品（ベアブリック）を<strong>103ドル・送料無料</strong>で出品しているとします。
+      この場合、ライバルの合計は103ドルです。
+    </p>
+
+    <div class="example-line wrong">
+      <span class="badge wrong">❌ 間違い</span><br>
+      商品価格 <strong>102.9ドル</strong> ＋ 送料 <strong>18ドル</strong>
+      ＝ 合計 <strong>120.9ドル</strong><br>
+      → ライバルより<strong>17.9ドルも高い</strong>！
+    </div>
+    <p>
+      商品価格をライバルより0.1ドルだけ安い102.9ドルにしても、送料18ドルを足した合計では
+      ライバルよりずっと高くなってしまいます。これでは最安値になりません。
+    </p>
+
+    <div class="example-line correct">
+      <span class="badge correct">⭕ 正解</span><br>
+      商品価格 <strong>84.9ドル</strong> ＋ 送料 <strong>18ドル</strong>
+      ＝ 合計 <strong>102.9ドル</strong><br>
+      → ライバルより<strong>0.1ドル安い＝最安値</strong>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-col">
+        <div class="bar-total-label">ライバル<br><span class="amount">103</span></div>
+        <div class="bar-stack rival" style="height:181px;">
+          <div class="seg item-rival" style="height:181px;">103</div>
+        </div>
+        <div class="bar-caption">送料無料</div>
+      </div>
+
+      <div class="bar-col">
+        <div class="bar-total-label" style="color:var(--wrong-text);">❌ 間違い<br><span class="amount">120.9</span></div>
+        <div class="bar-stack wrong" style="height:213px;">
+          <div class="seg ship-wrong" style="height:32px;">送料18</div>
+          <div class="seg item-wrong" style="height:181px;">商品102.9</div>
+        </div>
+        <div class="bar-caption">合計 120.9ドル</div>
+      </div>
+
+      <div class="bar-col">
+        <div class="bar-total-label" style="color:var(--correct-text);">⭕ 正解<br><span class="amount">102.9</span></div>
+        <div class="bar-stack correct" style="height:181px;">
+          <div class="seg ship-correct" style="height:32px;">送料18</div>
+          <div class="seg item-correct" style="height:149px;">商品84.9</div>
+        </div>
+        <div class="bar-caption">合計 102.9ドル</div>
+      </div>
+    </div>
+
+    <div class="point-box">
+      合計を先に決める → そこから送料分を引いた残りが商品価格
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>第3章　なぜ送料に「関税」を入れるのか</h2>
+    <p>
+      アメリカ向けの販売は、関税をセラー側があらかじめ価格に含めて預かる仕組み（DDP）になっています。
+      そのため、関税にあたる分をどこかの金額に載せておく必要があります。
+    </p>
+    <p>
+      載せる場所は2つ考えられます。「商品価格に込みにする」か、「送料の箱に入れる」かです。
+    </p>
+
+    <p>
+      関税がいくらになるかは、いつも利益計算に使っている「EC価格計算ツール」が教えてくれます。
+      決める順番は次のとおりです。
+    </p>
+    <ol class="steps">
+      <li>合計（DDP販売価格）を決める（例：ライバル103ドルより0.1安い<strong>102.9ドル</strong>）</li>
+      <li>EC価格計算ツールに102.9ドルを入力すると、参考関税<strong>17.72ドル</strong>と出る</li>
+      <li>シッピングポリシーには、切り上げて<strong>18ドル</strong>を設定する</li>
+      <li>商品価格（販売管理画面に入れる価格）は 102.9 − 18 ＝ <strong>84.9ドル</strong></li>
+    </ol>
+
+    <div class="breakdown">
+      <div class="top-box">合計 102.9ドル</div>
+      <div class="arrow">↓</div>
+      <div class="parts">
+        <div class="part ddu">
+          <span class="part-label">商品のぶん（DDU）</span>
+          <span class="part-value">85.18ドル</span>
+        </div>
+        <div class="part tariff">
+          <span class="part-label">関税のぶん</span>
+          <span class="part-value">17.72ドル</span>
+        </div>
+      </div>
+      <div class="note">「商品のぶん」には仕入れ・送料・手数料・利益が含まれています</div>
+      <div class="note">※図の85.18ドルは、関税をきっちり17.72ドルで引いた場合の数字です。実際には送料（シッピングポリシー）を18ドルに切り上げるので、入力する商品価格は少しだけ小さい84.9ドルになります</div>
+    </div>
+
+    <table class="term-table">
+      <tr><th>DDP</th><td>関税込みの価格</td></tr>
+      <tr><th>DDU</th><td>関税抜きの価格</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>第4章　「分ける」と「全部込み」の使い分け</h2>
+    <p>
+      どちらの方法でも、バイヤーが払う合計は<strong>102.9ドル</strong>で同じです。
+    </p>
+
+    <div class="compare-two">
+      <div class="col">
+        <h4>①分ける</h4>
+        <div class="bar-chart" style="height:220px;">
+          <div class="bar-col">
+            <div class="bar-total-label"><span class="amount">102.9</span></div>
+            <div class="bar-stack correct" style="height:181px;">
+              <div class="seg ship-correct" style="height:32px;">送料18</div>
+              <div class="seg item-correct" style="height:149px;">商品84.9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h4>②全部込み</h4>
+        <div class="bar-chart" style="height:220px;">
+          <div class="bar-col">
+            <div class="bar-total-label"><span class="amount">102.9</span></div>
+            <div class="bar-stack correct" style="height:181px;">
+              <div class="seg item-correct" style="height:181px;">商品102.9<br>（送料0）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>①のメリット</h3>
+    <p>
+      検索一覧で大きく表示されるのは商品価格です。84.9ドルは安く見えるため、
+      アメリカのバイヤーに売れやすくなります。
+    </p>
+
+    <h3>①の注意点</h3>
+    <p>
+      送料18ドルは、アメリカ以外の国のバイヤーにも同じ金額がかかります。
+      関税のないバイヤーから見ると、そのぶん割高に見えてしまい、売れにくくなることがあります。
+    </p>
+
+    <div class="view-compare">
+      <div class="view-card us">
+        <span class="flag">🇺🇸</span>
+        アメリカのバイヤー
+        <div class="ship-amount">送料18ドル</div>
+        <div class="comment">関税分だから納得</div>
+      </div>
+      <div class="view-card other">
+        <span class="flag">🌍</span>
+        アメリカ以外のバイヤー
+        <div class="ship-amount">送料18ドル</div>
+        <div class="comment">関税がないのに18ドル＝割高</div>
+      </div>
+    </div>
+
+    <h3>②の特徴</h3>
+    <p>
+      世界中どこから見ても同じ102.9ドルです。見え方に差がありません。
+    </p>
+
+    <div class="point-box">
+      アメリカ中心に売るなら①が有利です。ほかの国にも売りたい場合は②も選択肢になります。迷ったら講師の指示に従ってください。
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>まとめ</h2>
+    <ol class="summary-list">
+      <li>最安値は「商品価格＋送料」の合計で決まる</li>
+      <li>シッピングポリシー＝関税分を入れる「送料の箱」</li>
+      <li>合計を先に決めて、送料分を引いた残りを商品価格にする</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>2026年7月時点の情報です</footer>
+
+</body>
+</html>
