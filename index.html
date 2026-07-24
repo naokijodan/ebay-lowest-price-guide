@@ -541,6 +541,7 @@
       アメリカ向けの価格の中身は、じつは3つに分かれています。「商品代」「送料」「関税」です。
       ライバルの「103ドル・送料無料」も、中身はこの3つが全部入ったものです。
     </p>
+    <div style="font-size:13px; color:#666; margin:8px 0;">※この記事に出てくる金額（103ドル、送料20ドル、関税18ドルなど）は、すべて説明のための参考例です。実際の金額は商品ごとにEC価格計算ツールで計算してください。</div>
 
     <div class="bar-total-label">ライバル<br><span class="amount">103ドル</span>（送料無料＝全部込み）</div>
     <div class="fig-sum" style="flex-wrap:nowrap;">
@@ -615,7 +616,7 @@
     </p>
     <ul class="intro-list">
       <li><strong>アメリカのバイヤー</strong>：合計102.9ドルで最安値が取れます ⭕</li>
-      <li><strong>その他の国（DDU）のバイヤー</strong>：関税ぶん（17.72ドル）だけ余計に高い価格に見えます。しかも受け取り時に自分の国の関税は別に払います ❌ → その他の国では最安値が取れません</li>
+      <li><strong>その他の国（DDU）のバイヤー</strong>：関税ぶん（18ドル）だけ余計に高い価格に見えます。しかも受け取り時に自分の国の関税は別に払います ❌ → その他の国では最安値が取れません</li>
     </ul>
 
     <p>
@@ -671,26 +672,25 @@
     </p>
     <ol class="steps">
       <li>合計（DDP販売価格）を決める（例：ライバル103ドルより0.1安い<strong>102.9ドル</strong>）</li>
-      <li>EC価格計算ツールに102.9ドルを入力すると、参考関税<strong>17.72ドル</strong>と出る</li>
-      <li>シッピングポリシーには、切り上げて<strong>18ドル</strong>を設定する</li>
-      <li>商品価格（販売管理画面に入れる価格）は 102.9 − 18 ＝ <strong>84.9ドル</strong></li>
+      <li>EC価格計算ツールに102.9ドルを入力すると、参考関税が出る（この例では<strong>18ドル</strong>。商品ごとに違います）</li>
+      <li>シッピングポリシーには、その<strong>18ドル</strong>を設定する</li>
+      <li>販売価格（販売管理画面に入れる価格）は 102.9 − 18 ＝ <strong>84.9ドル</strong></li>
     </ol>
 
     <div class="breakdown">
       <div class="top-box">合計 102.9ドル</div>
       <div class="arrow">↓</div>
       <div class="parts">
-        <div class="part ddu">
-          <span class="part-label">商品のぶん（DDU）</span>
-          <span class="part-value">85.18ドル</span>
+        <div class="part ddu" style="flex:3 1 0; min-width:0;">
+          <span class="part-label">販売価格のぶん（DDU）＝商品64.9＋送料20</span>
+          <span class="part-value">84.9ドル</span>
         </div>
-        <div class="part tariff">
+        <div class="part tariff" style="flex:1.3 1 0; min-width:0;">
           <span class="part-label">関税のぶん</span>
-          <span class="part-value">17.72ドル</span>
+          <span class="part-value">18ドル</span>
         </div>
       </div>
-      <div class="note">「商品のぶん」には仕入れ・送料・手数料・利益が含まれています</div>
-      <div class="note">※図の85.18ドルは、関税をきっちり17.72ドルで引いた場合の数字です。実際には送料（シッピングポリシー）を18ドルに切り上げるので、入力する商品価格は少しだけ小さい84.9ドルになります</div>
+      <div class="note">「販売価格のぶん」には仕入れ・送料・手数料・利益が含まれています</div>
     </div>
 
     <div class="point-box">
