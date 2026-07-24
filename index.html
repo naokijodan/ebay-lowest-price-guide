@@ -112,7 +112,7 @@
     text-align: center;
   }
 
-  /* 図1: 合計の箱 */
+  /* 図: 合計の箱 */
   .fig-sum {
     display: flex;
     align-items: center;
@@ -169,7 +169,7 @@
     font-size: 18px;
   }
 
-  /* 図2, 図4: 積み上げ棒グラフ */
+  /* 図: 積み上げ棒グラフ */
   .bar-chart {
     display: flex;
     align-items: flex-end;
@@ -282,7 +282,7 @@
     font-size: 18px;
   }
 
-  /* 図3: 内訳 */
+  /* 図: 内訳 */
   .breakdown {
     margin: 20px 0;
   }
@@ -367,7 +367,7 @@
     width: 30%;
   }
 
-  /* 図4: 分ける vs 全部込み */
+  /* 図: 左右比較 */
   .compare-two {
     display: flex;
     gap: 16px;
@@ -385,12 +385,22 @@
     color: #333;
   }
 
-  /* 図5: 見え方比較 */
+  .compare-two .col-price {
+    font-size: 13px;
+    color: #555;
+    margin: 0 0 10px 0;
+  }
+
+  /* 図: 国ごとの見え方比較カード */
   .view-compare {
     display: flex;
     gap: 12px;
     margin: 16px 0;
     flex-wrap: wrap;
+  }
+
+  .view-compare.stacked {
+    flex-direction: column;
   }
 
   .view-card {
@@ -417,9 +427,10 @@
   }
 
   .view-card .ship-amount {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     margin: 6px 0;
+    line-height: 1.3;
   }
 
   .view-card.us .ship-amount { color: var(--correct-text); }
@@ -449,6 +460,8 @@
   @media (max-width: 380px) {
     .bar-total-label .amount { font-size: 17px; }
     .breakdown .part-value { font-size: 16px; }
+    .view-card .ship-amount { font-size: 17px; }
+    .compare-two { gap: 10px; }
   }
 </style>
 </head>
@@ -463,14 +476,51 @@
   <section class="card">
     <h2>この記事でわかること</h2>
     <ul class="intro-list">
-      <li>「最安値」は商品価格だけでなく、合計金額で決まること</li>
-      <li>シッピングポリシー（送料）に関税分を入れる理由</li>
-      <li>「価格と送料を分ける」か「全部込み」かの使い分け</li>
+      <li>関税のルールが変わり、アメリカとヨーロッパ向けは「関税込み（DDP）」で出品する必要があること</li>
+      <li>eBayの「最安値」は商品価格＋送料の合計で決まること</li>
+      <li>関税分を「送料（シッピングポリシー）」として分ける理由</li>
     </ul>
   </section>
 
   <section class="card">
-    <h2>第1章　大前提：バイヤーが払うのは「商品価格＋送料」の合計</h2>
+    <h2>第1章　前提：関税のルールが変わった</h2>
+    <p>
+      もともと関税は、バイヤーが自分の国で商品を受け取るときに払うもの、という考え方が世界共通でした。
+      セラーは関税抜きの価格で出品し、関税は届いたときにバイヤーが自分の国に払います。これを<strong>DDU（関税抜きの価格）</strong>と呼びます。
+    </p>
+    <p>
+      ところが最近、アメリカの関税ルールの変更と、ヨーロッパ（EU）の関税ルールの改定があり、アメリカとヨーロッパ向けに販売するときは、
+      セラーがあらかじめ関税を含めた価格で出品しなければならなくなりました。これを<strong>DDP（関税込みの価格）</strong>と呼びます。
+      アメリカとヨーロッパ以外の国は、今まで通りDDU（関税はバイヤーが受け取り時に払う）のままです。
+    </p>
+
+    <div class="fig-sum">
+      <div class="box price" style="flex:1 1 45%; max-width:260px;">
+        <span class="label">🇺🇸🇪🇺 アメリカ・ヨーロッパ</span>
+        <span class="value">DDP</span>
+      </div>
+      <div class="box total" style="flex:1 1 45%; max-width:260px;">
+        <span class="label">🌏 その他の国</span>
+        <span class="value">DDU</span>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:14px; color:#444; margin-top:-6px;">
+      DDP＝関税込みの価格で出品／DDU＝関税はバイヤーが受け取り時に払う
+    </p>
+
+    <p>
+      こうして「関税込みで売る国」と「関税抜きで売る国」が混ざることになり、ここに価格の差が生まれます。
+      次の章から、この差にどう対応するかを見ていきます。
+    </p>
+
+    <table class="term-table">
+      <tr><th>DDP</th><td>関税込みの価格</td></tr>
+      <tr><th>DDU</th><td>関税抜きの価格（関税はバイヤーが受け取り時に自分の国に払う）</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>第2章　最安値は「商品価格＋送料」の合計で決まる</h2>
     <p>
       eBayでライバルのセラーと最安値を競うとき、比べているのは商品価格だけではありません。
       バイヤーが実際に支払うのは「商品価格」と「送料」を足した合計金額です。
@@ -497,13 +547,10 @@
     <div class="point-box">
       比べるのも合計、決めるのも合計
     </div>
-  </section>
 
-  <section class="card">
-    <h2>第2章　よくある間違い（実例）</h2>
     <p>
       ライバルセラーが同じ商品（ベアブリック）を<strong>103ドル・送料無料</strong>で出品しているとします。
-      この場合、ライバルの合計は103ドルです。
+      これはアメリカのバイヤーが払う金額での勝負です。この場合、ライバルの合計は103ドルです。
     </p>
 
     <div class="example-line wrong">
@@ -558,14 +605,61 @@
   </section>
 
   <section class="card">
-    <h2>第3章　なぜ送料に「関税」を入れるのか</h2>
+    <h2>第3章　なぜ関税を「送料」として分けるのか</h2>
     <p>
-      アメリカ向けの販売は、関税をセラー側があらかじめ価格に含めて預かる仕組み（DDP）になっています。
-      そのため、関税にあたる分をどこかの金額に載せておく必要があります。
+      全部込みのDDP価格（102.9ドル）を、そのまま販売価格にするとどうなるでしょうか。
     </p>
+    <ul class="intro-list">
+      <li><strong>アメリカのバイヤー</strong>：合計102.9ドルで最安値が取れます ⭕</li>
+      <li><strong>その他の国（DDU）のバイヤー</strong>：関税ぶん（17.72ドル）だけ余計に高い価格に見えます。しかも受け取り時に自分の国の関税は別に払います ❌ → その他の国では最安値が取れません</li>
+    </ul>
+
     <p>
-      載せる場所は2つ考えられます。「商品価格に込みにする」か、「送料の箱に入れる」かです。
+      そこで、差となる関税分（とそれにかかる諸費用）を「送料」（シッピングポリシー）として扱います。
     </p>
+    <ul class="intro-list">
+      <li>販売価格は関税抜きの<strong>84.9ドル</strong>にする → 世界共通の価格</li>
+      <li>アメリカ向けにだけ、送料という名目で<strong>18ドル</strong>（関税分）を上乗せ → アメリカのバイヤーは合計<strong>102.9ドル</strong></li>
+      <li>その他の国のバイヤーは84.9ドル＋送料0のまま → 割高になりません</li>
+    </ul>
+    <p>
+      ヨーロッパ向けも同じ考え方で、地域ごとの金額を送料欄に設定します（金額は異なります）。
+    </p>
+
+    <div class="compare-two">
+      <div class="col">
+        <h4>全部込みにした場合</h4>
+        <p class="col-price">販売価格 102.9ドル</p>
+        <div class="view-compare stacked">
+          <div class="view-card us">
+            <span class="flag">🇺🇸</span>
+            <div class="ship-amount">102.9</div>
+            <div class="comment">⭕ 最安値</div>
+          </div>
+          <div class="view-card other">
+            <span class="flag">🌏</span>
+            <div class="ship-amount">102.9</div>
+            <div class="comment">❌ 関税がないのに割高</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h4>送料として分けた場合</h4>
+        <p class="col-price">販売価格 84.9ドル</p>
+        <div class="view-compare stacked">
+          <div class="view-card us">
+            <span class="flag">🇺🇸</span>
+            <div class="ship-amount">84.9＋18<br>＝102.9</div>
+            <div class="comment">⭕ 最安値</div>
+          </div>
+          <div class="view-card us">
+            <span class="flag">🌏</span>
+            <div class="ship-amount">84.9＋0</div>
+            <div class="comment">⭕ 適正価格</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <p>
       関税がいくらになるかは、いつも利益計算に使っている「EC価格計算ツール」が教えてくれます。
@@ -595,87 +689,17 @@
       <div class="note">※図の85.18ドルは、関税をきっちり17.72ドルで引いた場合の数字です。実際には送料（シッピングポリシー）を18ドルに切り上げるので、入力する商品価格は少しだけ小さい84.9ドルになります</div>
     </div>
 
-    <table class="term-table">
-      <tr><th>DDP</th><td>関税込みの価格</td></tr>
-      <tr><th>DDU</th><td>関税抜きの価格</td></tr>
-    </table>
-  </section>
-
-  <section class="card">
-    <h2>第4章　「分ける」と「全部込み」の使い分け</h2>
-    <p>
-      どちらの方法でも、バイヤーが払う合計は<strong>102.9ドル</strong>で同じです。
-    </p>
-
-    <div class="compare-two">
-      <div class="col">
-        <h4>①分ける</h4>
-        <div class="bar-chart" style="height:220px;">
-          <div class="bar-col">
-            <div class="bar-total-label"><span class="amount">102.9</span></div>
-            <div class="bar-stack correct" style="height:181px;">
-              <div class="seg ship-correct" style="height:32px;">送料18</div>
-              <div class="seg item-correct" style="height:149px;">商品84.9</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <h4>②全部込み</h4>
-        <div class="bar-chart" style="height:220px;">
-          <div class="bar-col">
-            <div class="bar-total-label"><span class="amount">102.9</span></div>
-            <div class="bar-stack correct" style="height:181px;">
-              <div class="seg item-correct" style="height:181px;">商品102.9<br>（送料0）</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <h3>①のメリット</h3>
-    <p>
-      検索一覧で大きく表示されるのは商品価格です。84.9ドルは安く見えるため、
-      アメリカのバイヤーに売れやすくなります。
-    </p>
-
-    <h3>①の注意点</h3>
-    <p>
-      送料18ドルは、アメリカ以外の国のバイヤーにも同じ金額がかかります。
-      関税のないバイヤーから見ると、そのぶん割高に見えてしまい、売れにくくなることがあります。
-    </p>
-
-    <div class="view-compare">
-      <div class="view-card us">
-        <span class="flag">🇺🇸</span>
-        アメリカのバイヤー
-        <div class="ship-amount">送料18ドル</div>
-        <div class="comment">関税分だから納得</div>
-      </div>
-      <div class="view-card other">
-        <span class="flag">🌍</span>
-        アメリカ以外のバイヤー
-        <div class="ship-amount">送料18ドル</div>
-        <div class="comment">関税がないのに18ドル＝割高</div>
-      </div>
-    </div>
-
-    <h3>②の特徴</h3>
-    <p>
-      世界中どこから見ても同じ102.9ドルです。見え方に差がありません。
-    </p>
-
     <div class="point-box">
-      アメリカ中心に売るなら①が有利です。ほかの国にも売りたい場合は②も選択肢になります。迷ったら講師の指示に従ってください。
+      販売価格は世界共通（関税抜き）。国によって違う関税は、送料の欄で国別に上乗せする
     </div>
   </section>
 
   <section class="card">
     <h2>まとめ</h2>
     <ol class="summary-list">
+      <li>アメリカ・ヨーロッパ向けは関税込み（DDP）で出品するルールになった</li>
       <li>最安値は「商品価格＋送料」の合計で決まる</li>
-      <li>シッピングポリシー＝関税分を入れる「送料の箱」</li>
-      <li>合計を先に決めて、送料分を引いた残りを商品価格にする</li>
+      <li>販売価格は関税抜きで世界共通にして、関税分はシッピングポリシー（送料）で国別に上乗せする</li>
     </ol>
   </section>
 
