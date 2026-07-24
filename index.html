@@ -493,6 +493,9 @@
       セラーがあらかじめ関税を含めた価格で出品しなければならなくなりました。これを<strong>DDP（関税込みの価格）</strong>と呼びます。
       アメリカとヨーロッパ以外の国は、今まで通りDDU（関税はバイヤーが受け取り時に払う）のままです。
     </p>
+    <p>
+      ただし、ヨーロッパ（EU）向けのDDPは<strong>150ユーロ以下の荷物が対象</strong>です。150ユーロを超える荷物は、今まで通りバイヤーが受け取り時に関税を払います。
+    </p>
 
     <div class="fig-sum">
       <div class="box price" style="flex:1 1 45%; max-width:260px;">
@@ -505,7 +508,8 @@
       </div>
     </div>
     <p style="text-align:center; font-size:14px; color:#444; margin-top:-6px;">
-      DDP＝関税込みの価格で出品／DDU＝関税はバイヤーが受け取り時に払う
+      DDP＝関税込みの価格で出品／DDU＝関税はバイヤーが受け取り時に払う<br>
+      ※ヨーロッパは150ユーロ以下の荷物が対象
     </p>
 
     <p>
@@ -525,6 +529,7 @@
       eBayでライバルのセラーと最安値を競うとき、比べているのは商品価格だけではありません。
       バイヤーが実際に支払うのは「商品価格」と「送料」を足した合計金額です。
       ライバルより安く見せたいなら、この合計どうしで勝負することになります。
+      アメリカ向けの場合、この「送料」の中身は関税分です（理由は第3章で説明します）。
     </p>
 
     <div class="fig-sum">
@@ -534,7 +539,7 @@
       </div>
       <div class="op">＋</div>
       <div class="box ship">
-        <span class="label">送料</span>
+        <span class="label">送料（関税分）</span>
         <span class="value">の箱</span>
       </div>
       <div class="op">＝</div>
@@ -553,22 +558,12 @@
       これはアメリカのバイヤーが払う金額での勝負です。この場合、ライバルの合計は103ドルです。
     </p>
 
-    <div class="example-line wrong">
-      <span class="badge wrong">❌ 間違い</span><br>
-      商品価格 <strong>102.9ドル</strong> ＋ 送料 <strong>18ドル</strong>
-      ＝ 合計 <strong>120.9ドル</strong><br>
-      → ライバルより<strong>17.9ドルも高い</strong>！
-    </div>
-    <p>
-      商品価格をライバルより0.1ドルだけ安い102.9ドルにしても、送料18ドルを足した合計では
-      ライバルよりずっと高くなってしまいます。これでは最安値になりません。
-    </p>
-
     <div class="example-line correct">
       <span class="badge correct">⭕ 正解</span><br>
+      合計を<strong>102.9ドル</strong>に決める（ライバルより0.1ドル安い）→
+      送料（関税分）は<strong>18ドル</strong> → 商品価格は 102.9−18＝<strong>84.9ドル</strong><br>
       商品価格 <strong>84.9ドル</strong> ＋ 送料 <strong>18ドル</strong>
-      ＝ 合計 <strong>102.9ドル</strong><br>
-      → ライバルより<strong>0.1ドル安い＝最安値</strong>
+      ＝ 合計 <strong>102.9ドル</strong> ＝ <strong>最安値</strong>
     </div>
 
     <div class="bar-chart">
@@ -581,18 +576,9 @@
       </div>
 
       <div class="bar-col">
-        <div class="bar-total-label" style="color:var(--wrong-text);">❌ 間違い<br><span class="amount">120.9</span></div>
-        <div class="bar-stack wrong" style="height:213px;">
-          <div class="seg ship-wrong" style="height:32px;">送料18</div>
-          <div class="seg item-wrong" style="height:181px;">商品102.9</div>
-        </div>
-        <div class="bar-caption">合計 120.9ドル</div>
-      </div>
-
-      <div class="bar-col">
         <div class="bar-total-label" style="color:var(--correct-text);">⭕ 正解<br><span class="amount">102.9</span></div>
         <div class="bar-stack correct" style="height:181px;">
-          <div class="seg ship-correct" style="height:32px;">送料18</div>
+          <div class="seg ship-correct" style="height:32px;">関税18</div>
           <div class="seg item-correct" style="height:149px;">商品84.9</div>
         </div>
         <div class="bar-caption">合計 102.9ドル</div>
@@ -600,7 +586,7 @@
     </div>
 
     <div class="point-box">
-      合計を先に決める → そこから送料分を引いた残りが商品価格
+      合計を先に決める → そこから送料（関税分）を引いた残りが商品価格
     </div>
   </section>
 
